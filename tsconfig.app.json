@@ -25,5 +25,5 @@
     /* Tipos de teste adicionados */
     "types": ["@testing-library/jest-dom", "vitest/globals"]
   },
-  "include": ["src"]
+  "include": ["src", "playwright.config.ts", "e2e", "test"]
 }
