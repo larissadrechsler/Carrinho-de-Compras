@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useState } from "react";
 import {
   AppShell,
   Group,
@@ -6,6 +7,8 @@ import {
   Button,
   Container,
   Badge,
+  ActionIcon,
+  Indicator,
 } from "@mantine/core";
 import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
 import {
@@ -13,13 +16,18 @@ import {
   IconUser,
   IconLogout,
   IconLock,
+  IconShoppingCart,
 } from "@tabler/icons-react";
 import { useAuth } from "../hooks/useAuth";
+import { useCart } from "../hooks/useCart";
+import { CartDrawer } from "../components/CartDrawer";
 
 export function AppLayout(): ReactNode {
   const { user, isAuthenticated, logout } = useAuth();
+  const { totalItems } = useCart();
   const navigate = useNavigate();
   const location = useLocation();
+  const [cartOpened, setCartOpened] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -33,7 +41,11 @@ export function AppLayout(): ReactNode {
       >
         <Container size="lg" h="100%">
           <Group h="100%" justify="space-between">
-            <Group gap="xs">
+            <Group
+              gap="xs"
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/")}
+            >
               <IconShoppingBag size={28} color="#228be6" />
               <Title order={3}>DummyStore</Title>
             </Group>
@@ -67,6 +79,22 @@ export function AppLayout(): ReactNode {
                   Painel Admin
                 </Button>
               )}
+
+              <Indicator
+                label={totalItems}
+                size={16}
+                color="blue"
+                disabled={totalItems === 0}
+              >
+                <ActionIcon
+                  variant="light"
+                  size="lg"
+                  color="blue"
+                  onClick={() => setCartOpened(true)}
+                >
+                  <IconShoppingCart size={20} />
+                </ActionIcon>
+              </Indicator>
 
               {isAuthenticated ? (
                 <Group gap="xs">
@@ -104,6 +132,8 @@ export function AppLayout(): ReactNode {
           <Outlet />
         </Container>
       </AppShell.Main>
+
+      <CartDrawer opened={cartOpened} onClose={() => setCartOpened(false)} />
     </AppShell>
   );
 }
