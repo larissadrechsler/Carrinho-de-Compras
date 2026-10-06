@@ -3,10 +3,12 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
+  // Substitua "meu-projeto-dummyjson" pelo nome exato do seu repositório no GitHub
+  base: "/meu-projeto-dummyjson/",
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: "./test/setup.ts", // Caminho atualizado para a pasta test na raiz
-    exclude: ["**/e2e/**", "**/node_modules/**"], // Ignora o Playwright no Vitest
+    setupFiles: "./test/setup.ts",
+    exclude: ["**/e2e/**", "**/node_modules/**"],
   },
 });

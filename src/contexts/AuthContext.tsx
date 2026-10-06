@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { api } from "../services/api";
 import type { User, LoginCredentials } from "../types/auth";
 
-interface AuthContextType {
+export interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;

@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import "@testing-library/jest-dom";
 import type { TestingLibraryMatchers } from "@testing-library/jest-dom/matchers";
 

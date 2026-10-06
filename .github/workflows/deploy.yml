@@ -1,0 +1,43 @@
+name: CI/CD Pipeline & Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Instalar Dependências
+        run: npm ci
+
+      - name: Executar Testes Unitários (Vitest)
+        run: npm run test
+
+      - name: Instalar Navegadores do Playwright
+        run: npx playwright install --with-deps
+
+      - name: Executar Testes E2E (Playwright)
+        run: npm run test:e2e
+
+      - name: Build da Aplicação
+        run: npm run build
+
+      - name: Deploy para o GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
