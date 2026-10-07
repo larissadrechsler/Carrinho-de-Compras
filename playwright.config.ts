@@ -10,13 +10,17 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
   use: {
-    baseURL: "http://localhost:5173",
+    // Altere para incluir a subpasta do repositorio ou use ./
+    baseURL: process.env.CI
+      ? "http://localhost:5173/Carrinho-de-Compras/"
+      : "http://localhost:5173/",
     trace: "on-first-retry",
   },
   webServer: {
     command: "npm run dev",
     url: "http://localhost:5173",
     reuseExistingServer: !process.env.CI,
+    timeout: 120 * 1000,
   },
   projects: [
     {
