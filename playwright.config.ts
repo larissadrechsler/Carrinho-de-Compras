@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
@@ -10,10 +9,8 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
   use: {
-    // Altere para incluir a subpasta do repositorio ou use ./
-    baseURL: process.env.CI
-      ? "http://localhost:5173/Carrinho-de-Compras/"
-      : "http://localhost:5173/",
+    // Aponta direto para o localhost sem depender de subpasta no dev server
+    baseURL: "http://localhost:5173",
     trace: "on-first-retry",
   },
   webServer: {
