@@ -15,7 +15,8 @@ export function App() {
     <MantineProvider defaultColorScheme="light">
       <AuthProvider>
         <CartProvider>
-          <BrowserRouter>
+          {/* Adição do basename para sincronizar com o GitHub Pages */}
+          <BrowserRouter basename={import.meta.env.BASE_URL}>
             <Routes>
               <Route path="/" element={<AppLayout />}>
                 <Route index element={<Home />} />
