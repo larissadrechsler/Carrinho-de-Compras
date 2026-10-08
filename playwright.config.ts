@@ -9,15 +9,14 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
   use: {
-    // Aponta direto para o localhost sem depender de subpasta no dev server
-    baseURL: "http://localhost:5173",
+    baseURL: "http://localhost:4173/Carrinho-de-Compras/",
     trace: "on-first-retry",
   },
   webServer: {
-    command: "npm run dev",
-    url: "http://localhost:5173",
+    command: "npm run build && npm run preview -- --port 4173",
+    url: "http://localhost:4173/Carrinho-de-Compras/",
     reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
+    timeout: 180 * 1000,
   },
   projects: [
     {
